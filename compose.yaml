@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  server:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=dbmaster
+      - MYSQL_USER=dbmasteruser
+      - MYSQL_PASSWORD=6U$3#3}<gk_:3tiEZksA(H:SoQCT9de!
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    networks:
+      - webstore_network
+
+  web:
+    image: carnesnest/project2
+    build: .
+    environment:
+      - DOCKER_REGISTRY_USER=${DOCKER_REGISTRY_USER}
+      - DOCKER_REGISTRY_PASS=${DOCKER_REGISTRY_PASS}
+
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: dbmaster
+      MYSQL_USER: dbmasteruser
+      MYSQL_PASSWORD: 6U$3#3}<gk_:3tiEZksA(H:SoQCT9de!
+    ports:
+      - "3306:3306"
+    networks:
+      - webstore_network
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
+
+networks:
+  webstore_network:
+    driver: bridge

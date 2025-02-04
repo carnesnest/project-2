@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Justin's Robot Parts</title>
+    
+    <!-- Bootstrap 5 CSS from CDN -->
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Justin's Robot Parts</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#departments">Departments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#search">Search</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="container text-center my-5">
+        <h1>Welcome to Justin's Robot Parts</h1>
+        <p class="lead">Find the best parts to build your perfect robot!</p>
+    </div>
+
+    <!-- Search Bar Section -->
+    <div class="container my-4" id="search">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+                <form method="GET" action="{% url 'product_search' %}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for products..." name="search" aria-label="Search" value="{{ request.GET.search }}">
+                        <button class="btn btn-outline-primary" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Results Section -->
+    <div class="container my-5" id="products">
+        <h2 class="text-center mb-4">Product Search Results</h2>
+        <div class="row">
+            {% for product in myproduct %}
+                <div class="col-12 col-sm-6 col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.ProductName }}</h5>
+                            <p class="card-text">Stock: {{ product.ProductNumber }} items</p>
+                            <a href="#" class="btn btn-primary">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-center">No products found matching your search.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Departments Section -->
+    <div class="container my-5" id="departments">
+        <h2 class="text-center mb-4">Departments</h2>
+        <div class="row">
+            {% for dept in mydept %}
+                <div class="col-12 col-sm-6 col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ dept.image_url }}" class="card-img-top" alt="{{ dept.DeptName }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ dept.DeptName }}</h5>
+                            <p class="card-text">Explore our collection of {{ dept.DeptName }} parts for your robot builds.</p>
+                            <a href="#" class="btn btn-primary">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-center">No departments available.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2025 Justin's Robot Parts. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap 5 JavaScript and dependencies -->
+    {% bootstrap_javascript %}
+</body>
+</html>

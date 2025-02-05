@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'bootstrap5'
+    'django_bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -76,6 +76,7 @@ WSGI_APPLICATION = 'webstore.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 import os
+
 import pymysql
 
 pymysql.install_as_MySQLdb()
